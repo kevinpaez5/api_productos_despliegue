@@ -1,10 +1,15 @@
 const express = require("express");
 const productosRouter = require("./routes/productos");
 const errorHandler = require("./middlewares/errorHandler");
-
+const mongoose = require("mongoose");
 const { auth } = require("express-oauth2-jwt-bearer");
 
 require("dotenv").config();
+
+mongoose.connect(process.env.MONGO_URL, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 
 const oauthCheck = auth({
   audience: process.env.OAUTH_AUDIENCE,
